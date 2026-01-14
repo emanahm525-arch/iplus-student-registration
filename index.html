@@ -81,7 +81,13 @@
     </style>
 </head>
 <body>
-
+<script>
+  var password = prompt("هذا الموقع خاص بالإدارة، يرجى إدخال كلمة المرور:");
+  if (password != "12345") { 
+    alert("عذراً، كلمة المرور خاطئة!");
+    document.body.innerHTML = "<div style='text-align:center; margin-top:100px;'><h1>دخول غير مصرح به</h1><p>يرجى مراجعة المسؤولة عن الموقع.</p></div>";
+  }
+</script>
     <div class="container">
         <div class="form-container text-center">
             <img src="logo.jpg" alt="Logo" style="width: 100%; max-width: 400px; height: auto;">
