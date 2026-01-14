@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل طفل جديد | آي بلس أكاديمي</title>
+    <link rel="icon" href="logo.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background-color: #fff9f0; 
+            padding: 40px 0;
+        }
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin: auto;
+            border-top: 10px solid #f9a825;
+        }
+        .logo-img { width: 120px; margin-bottom: 15px; }
+        .form-label { color: #555; font-size: 0.9rem; }
+        .form-control, .form-select {
+            border-radius: 12px;
+            padding: 10px;
+            border: 2px solid #f1f1f1;
+        }
+        .form-control:focus {
+            border-color: #f9a825;
+            box-shadow: none;
+        }
+        .btn-submit {
+            background-color: #f9a825;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        .btn-submit:hover {
+            background-color: #e65100;
+            transform: translateY(-2px);
+        }
+        .table-section {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .btn-excel {
+            background-color: #2e7d32;
+            color: white;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        
+@media (max-width: 600px) {
+    .form-container {
+        padding: 20px; 
+        margin: 10px;  
+    }
+    h2 {
+        font-size: 1.3rem; 
+    }
+    .btn-submit {
+        font-size: 1rem;
+        padding: 12px;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="form-container text-center">
+            <img src="logo.jpg" alt="Logo" class="logo-img">
+            <h2 class="fw-bold mb-4" style="color: #444;">نموذج تسجيل طفل جديد</h2>
+            
+            <form id="childForm">
+                <div class="row text-start">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">اسم الطفل رباعي</label>
+                        <input type="text" id="studentName" class="form-control" placeholder="أدخل الاسم الكامل">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">تاريخ التسجيل</label>
+                        <input type="date" id="regDate" class="form-control">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold">تاريخ الميلاد</label>
+                        <input type="date" id="birthDate" class="form-control">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold">مكان الميلاد</label>
+                        <input type="text" id="birthPlace" class="form-control" placeholder="المدينة">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-bold">النوع</label>
+                        <select id="gender" class="form-select">
+                            <option value="">اختر...</option>
+                            <option value="ذكر">ذكر</option>
+                            <option value="أنثى">أنثى</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">الجنسية</label>
+                        <input type="text" id="nationality" class="form-control" placeholder="الجنسية">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">العمر</label>
+                        <input type="text" id="nationality" class="form-control" placeholder="العمر">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">العنوان الحالي</label>
+                        <input type="text" id="address" class="form-control" placeholder="الحي / المدينة">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">رقم ولي الأمر (1)</label>
+                        <input type="tel" id="phone1" class="form-control" placeholder="000000000">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">رقم التواصل (2)</label>
+                        <input type="tel" id="phone2" class="form-control" placeholder="000000000">
+                    </div>
+                </div>
+
+                <button type="button" onclick="saveData()" class="btn-submit shadow mt-3">
+                    حفظ بيانات الطفل في السجل
+                </button>
+            </form>
+        </div>
+
+        <div class="table-section shadow-sm">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold text-warning m-0">سجل الطلاب المسجلين</h4>
+                <button onclick="exportToExcel()" class="btn btn-excel btn-sm shadow-sm">تنزيل السجل (Excel)</button>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>الاسم</th>
+                            <th>التسجيل</th>
+                            <th>الجنسية</th>
+                            <th>رقم التواصل</th>
+                            <th>الحالة</th>
+                            <tr>الحالة/tr>
+                        </tr>
+                    </thead>
+                    <tbody id="dataBody"></tbody>
+                </table>
+            </div>
+            <button onclick="clearData()" class="btn btn-sm btn-outline-danger mt-2">مسح السجل بالكامل</button>
+        </div>
+    </div>
+<script>
+    function saveData() {
+        const child = {
+            name: document.getElementById('studentName').value,
+            reg: document.getElementById('regDate').value,
+            birth: document.getElementById('birthDate').value,
+            place: document.getElementById('birthPlace').value,
+            gender: document.getElementById('gender').value,
+            nat: document.getElementById('nationality').value,
+            addr: document.getElementById('address').value,
+            p1: document.getElementById('phone1').value,
+            p2: document.getElementById('phone2').value
+        };
+
+        if (!child.name || !child.p1) {
+            Swal.fire({ icon: 'warning', title: 'تنبيه', text: 'يرجى إكمال الاسم ورقم الهاتف' });
+            return;
+        }
+
+        let list = JSON.parse(localStorage.getItem('myStudents')) || [];
+        list.push(child);
+        localStorage.setItem('myStudents', JSON.stringify(list));
+
+        Swal.fire({ icon: 'success', title: 'تم الحفظ', text: 'تمت إضافة الطفل بنجاح' })
+        .then(() => { location.reload(); });
+    }
+
+    function deleteItem(index) {
+        let list = JSON.parse(localStorage.getItem('myStudents')) || [];
+        Swal.fire({
+            title: 'هل أنتِ متأكدة؟',
+            text: "سيتم حذف بيانات هذا الطفل نهائياً من السجل",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'نعم، احذف',
+            cancelButtonText: 'إلغاء'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                list.splice(index, 1);
+                localStorage.setItem('myStudents', JSON.stringify(list));
+                location.reload();
+            }
+        });
+    }
+    window.onload = function() {
+        let list = JSON.parse(localStorage.getItem('myStudents')) || [];
+        let body = document.getElementById('dataBody');
+        list.forEach((item, index) => {
+            body.innerHTML += `
+                <tr>
+                    <td><b>${item.name}</b></td>
+                    <td>${item.reg}</td>
+                    <td>${item.nat}</td>
+                    <td>${item.p1}</td>
+                    <td><span class="badge bg-success">نشط</span></td>
+                    <td>
+                        <button onclick="deleteItem(${index})" class="btn btn-sm btn-danger" style="border-radius: 8px;">حذف</button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    function exportToExcel() {
+        let list = JSON.parse(localStorage.getItem('myStudents')) || [];
+        if (list.length === 0) {
+            Swal.fire('السجل فارغ!', 'لا توجد بيانات لتصديرها.', 'info');
+            return;
+        }
+        const headers = "اسم الطفل,تاريخ التسجيل,رقم التواصل\n";
+        const rows = list.map(c => `${c.name},${c.reg},${c.p1}`).join("\n");
+        const blob = new Blob(["\ufeff" + headers + rows], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "سجل_طلاب_روضة_آي_بلس.csv";
+        link.click();
+    }
+
+    function clearData() {
+        if(confirm("هل أنتِ متأكدة من مسح جميع السجلات؟")) {
+            localStorage.removeItem('myStudents');
+            location.reload();
+        }
+    }
+</script>
+    </body>
+</html>
